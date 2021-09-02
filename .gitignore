@@ -34,3 +34,10 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+/config/credentials/development.key
+
+/config/credentials/production.key
+
+# Ignore the db setup script for dev environments. 
+/db/setup_dev.sql

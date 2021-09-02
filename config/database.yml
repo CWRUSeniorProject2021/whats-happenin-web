@@ -13,8 +13,8 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
+  username: whats_happenin
+  password: <%= Rails.application.credentials.dig(:dev_db_password) %>
   socket: /tmp/mysql.sock
 
 development:
@@ -49,7 +49,7 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: whats_happenin_production
-  username: whats_happenin
-  password: <%= ENV['WHATS_HAPPENIN_DATABASE_PASSWORD'] %>
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= Rails.application.credentials.dig(:production_db_url) %>
