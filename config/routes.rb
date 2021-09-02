@@ -1,3 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  # All API routes.
+  namespace :api do
+
+    # All API v1 routes.
+    namespace :v1 do
+
+    end
+  end
 end

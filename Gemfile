@@ -28,6 +28,29 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+# Policies and object authorization
+gem 'pundit'
+# User Authentication
+gem 'devise'
+# Bring in decorators
+gem 'draper'
+# Enable importing of font-awesome icons
+gem 'font-awesome-rails'
+# Validations for active storage
+gem 'active_storage_validations'
+# Generate JSON
+gem 'json'
+# Generate documentation for the project
+gem 'rdoc'
+
+# Deployment
+gem 'capistrano', '~> 3.11'
+gem 'capistrano-rails', '~> 1.4'
+gem 'capistrano-passenger', '~> 0.2.0'
+gem 'capistrano-rvm', '~> 0.1.2', '>= 0.1.2'
+gem 'ed25519'
+gem 'bcrypt_pbkdf'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
