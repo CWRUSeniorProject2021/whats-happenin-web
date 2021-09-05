@@ -52,10 +52,10 @@ production:
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: <%= Rails.application.credentials.dig(:production_db_url) %>
+  url: <%= Rails.application.credentials.dig(:database_connection_url) %>
 
 staging:
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: <%= Rails.application.credentials.dig(:staging_db_url) %>
+  url: <%= Rails.application.credentials.dig(:database_connection_url) %>
