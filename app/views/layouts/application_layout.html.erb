@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<%=content_tag :html do%>
+  <%=content_tag :head do%>
+    <!-- Set up character and viewport settings -->
+    <%=content_tag :meta, "", charset: "utf-8"%>
+    <%=content_tag :meta, "", name:"viewport", content: "width=device-width, initial-scale=1.0"%>
+    <%=content_tag :meta, "", "http-equiv" => "content-type", content:"text/html;charset=utf-8"%>
+    <!-- Set the title, which appears in the browser tab @page_title-->
+    <%=content_tag(:title, @title || "What's Happenin")%>
+    <!-- Set up CSRF (Cross-Site Request Forgery) tokens -->
+    <%=csrf_meta_tag%>
+    <!-- Load JS from files listed in application.js -->
+    <%#=javascript_include_tag 'application'%>
+    <%=javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- Load JS for custom file input fields, which cannot be included in the project since it is an npm plugin -->
+    <%=javascript_include_tag 'https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js'%>
+    <!-- Load CSS from files listed in application.scss -->
+    <%=stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		<!-- Load CSS from remote sources -->
+		<%=stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i' %>
+		<%=stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css' %>
+    <%#= stylesheet_link_tag '//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/le-frog/jquery-ui.min.css' %>
+    <%#=stylesheet_link_tag 'application'%>
+    <!--Use the favicon to mark a develoment environment.  The normal favicon remains in public/
+     because that is where browsers will look for that icon for bookmarking.-->
+    <%if Rails.env.development?%>
+      <%#=favicon_link_tag "favicons/dev_favicon.ico"%>
+    <%end%>
+    <!--Mobile Safari is looking for its own favicon, and it will pollute our logs if we don't have it.-->
+    <%#=favicon_link_tag "favicons/favicon_120x120.png", rel: "apple-touch-icon", sizes: "120x120", type: "image/png"%>
+    <%#=favicon_link_tag "favicons/favicon.png", rel: "apple-touch-icon-precomposed", type: "image/png"%>
+    <%#=favicon_link_tag "favicons/favicon.png", rel: "apple-touch-icon", type: "image/png"%>
+  <%end%>
+	<%=content_tag :body do%>
+		<%=render partial: "layouts/nav_bar/top_nav"%>
+		<%=content_tag :main, class: "page" do%>
+			<%=tag.div class: "container" do%>
+        <%=tag.div id: "flash-area", class: "py-2" do%>
+					<%=tag.div raw(flash[:notice]), id: "notice", class: "text-success"%>
+					<%=tag.div raw(flash[:warning]), id: "warning", class: "text-warning"%>
+					<%=tag.div raw(flash[:error]), id:"error", class: "text-danger"%>
+				<%end%>
+				<%=yield%>
+			<%end%>
+		<%end%>
+    <%#=render partial: "layouts/footer"%>
+	<%end%>
+<%end%>

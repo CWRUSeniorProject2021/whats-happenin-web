@@ -1,0 +1,9 @@
+<%=content_tag :nav, class: "navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" do%>
+  <%=tag.div class: "container" do%>
+    <%=button_tag class: "navbar-toggler", data: {"bs-toggle": "collapse", "bs-target": "#navcol-1"} do%>
+      <%=content_tag :span, "Toggle navigation", class: "visually-hidden"%>
+      <%=content_tag :span, "", class: "navbar-toggler-icon"%>
+    <%end%>
+    <%=link_to "Test Test", root_path, class: "navbar-brand logo"%>
+  <%end%>
+<%end%>
