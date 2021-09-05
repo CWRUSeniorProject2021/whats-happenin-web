@@ -39,5 +39,7 @@ yarn-debug.log*
 
 /config/credentials/production.key
 
-# Ignore the db setup script for dev environments. 
+# Ignore the db setup script for dev environments.
 /db/setup_dev.sql
+
+.DS_Store

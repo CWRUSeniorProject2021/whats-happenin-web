@@ -28,6 +28,8 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+# Needed for API access
+gem 'rack-cors'
 # Policies and object authorization
 gem 'pundit'
 # User Authentication
