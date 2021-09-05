@@ -1,6 +1,7 @@
-namespace :api do
-  namespace :v1 do
-    class APIController < ActionController::Base
+module Api
+  module V1
+    class ApiController < ActionController::Base
+      skip_before_action :verify_authenticity_token
     end
   end
 end
