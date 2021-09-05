@@ -36,13 +36,11 @@ yarn-debug.log*
 .yarn-integrity
 
 /config/credentials/development.key
-
 /config/credentials/production.key
 /config/credentials/staging.key
+/config/ssh_options.rb
 
 # Ignore the db setup script for dev environments.
 /db/setup_dev.sql
 
 .DS_Store
-
-/config/credentials/prodcution.key
