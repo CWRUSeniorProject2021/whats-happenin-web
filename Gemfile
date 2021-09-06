@@ -34,6 +34,7 @@ gem 'rack-cors'
 gem 'pundit'
 # User Authentication
 gem 'devise'
+gem 'devise_token_auth'
 # Bring in decorators
 gem 'draper'
 # Enable importing of font-awesome icons
@@ -44,6 +45,8 @@ gem 'active_storage_validations'
 gem 'json'
 # Generate documentation for the project
 gem 'rdoc'
+# Javascript Web Tokens
+gem 'jwt'
 
 # Deployment
 gem 'capistrano', '~> 3.11'

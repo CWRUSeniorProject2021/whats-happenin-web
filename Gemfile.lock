@@ -109,6 +109,10 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise_token_auth (1.2.0)
+      bcrypt (~> 3.0)
+      devise (> 3.5.2, < 5)
+      rails (>= 4.2.0, < 6.2)
     draper (4.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -128,6 +132,7 @@ GEM
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     json (2.5.1)
+    jwt (2.2.3)
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -278,11 +283,13 @@ DEPENDENCIES
   capistrano-rvm (~> 0.1.2, >= 0.1.2)
   capybara (>= 3.26)
   devise
+  devise_token_auth
   draper
   ed25519
   font-awesome-rails
   jbuilder (~> 2.7)
   json
+  jwt
   listen (~> 3.3)
   mysql2 (~> 0.5)
   puma (~> 5.0)
