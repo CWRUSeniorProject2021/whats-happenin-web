@@ -1,4 +1,4 @@
 json.name do
-  json.first = "Christian"
-  json.last = "Tingle"
+  byebug
+  json.name = current_user.name
 end
