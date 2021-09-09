@@ -1,4 +1,6 @@
-# README
+# What's Happenin'
+
+Repository for the web backend for Fall CSDS 395 Project "What's Happenin'".
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
