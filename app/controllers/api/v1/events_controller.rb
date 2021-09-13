@@ -12,8 +12,9 @@ module Api
       def create
         begin
           @event.update!(permitted_attributes(@event))
+          @event.update(school: current_user.school)
           render :action => :show
-        rescue Exception => e
+        rescue ActiveRecord::RecordInvalid
           @status = false
           @errors = @event.errors
           render :action => :new, status: :bad_request
@@ -27,7 +28,7 @@ module Api
         begin
           @event.update!(permitted_attributes(@event))
           render :action => :show
-        rescue Exception
+        rescue ActiveRecord::RecordInvalid
           @status = false
           @errors = @event.errors
           render :action => :edit, status: :bad_request
@@ -37,7 +38,7 @@ module Api
       def destroy
         begin
           @event.destroy!
-        rescue Exception
+        rescue ActiveRecord::RecordInvalid
           @status = false
           @errors = @event.errors
           render status: :bad_request

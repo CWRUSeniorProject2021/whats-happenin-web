@@ -7,7 +7,7 @@ module Api
       end
 
       def show?
-        record.school_id.blank? || (user.school == record.school)
+        record.public_vis? || (user.school == record.school)
       end
 
       def create?
@@ -31,7 +31,7 @@ module Api
       end
 
       def permitted_attributes
-        return [:id, :title, :description, :start_date, :end_date, :school_id, :image]
+        return [:title, :description, :start_date, :end_date, :school_id, :image, :visibility]
       end
     end
   end

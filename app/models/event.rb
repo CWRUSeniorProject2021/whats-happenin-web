@@ -1,5 +1,7 @@
 class Event < ApplicationRecord
 
+  enum visibility: {school_vis: 0, public_vis: 1}
+
   belongs_to :user, optional: false
   belongs_to :school, optional: true
 
@@ -10,7 +12,7 @@ class Event < ApplicationRecord
   validates :start_date, presence: true
   validates :end_date, presence: true
 
-  validate :end_after_start, unless: -> {start_date < end_date}
+  validate :end_after_start, if: -> {self.start_date > self.end_date}
 
 private
 
