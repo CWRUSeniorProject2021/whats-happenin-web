@@ -6,6 +6,7 @@ module Api
       include ActionView::Layouts
       include ActionController::ImplicitRender
 
+      rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
       before_action :authenticate_user!
       before_action :configure_permitted_parameters, if: :devise_controller?
@@ -39,9 +40,17 @@ module Api
         super([:api, :v1, record], action)
       end
 
+      ##
+      # Define instance variables that are used in render layouts
       def define_globals
         @status = true
         @errors = {}
+      end
+
+      ##
+      # Use the 403 - Forbidden error code to signify denied access to a resource.
+      def user_not_authorized
+        render json: {}, status: :forbidden
       end
     end
   end
