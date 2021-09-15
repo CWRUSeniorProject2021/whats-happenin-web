@@ -45,11 +45,16 @@ module Api
         end
       end
 
+      ##
+      # Get attendees and rsvp status for the provided event
+      def attendees
+      end
+
     private
 
       def authorize_events
         case params[:action].to_sym
-        when :show, :edit, :update, :destroy
+        when :show, :edit, :update, :destroy, :attendees
           @event = Event.find(params[:id])
         when :new, :create
           @event = Event.new(user: current_user, school: current_user.school, start_date: Time.now, end_date: Time.now + 1.hour)

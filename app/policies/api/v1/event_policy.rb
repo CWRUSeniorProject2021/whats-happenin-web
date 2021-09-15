@@ -30,6 +30,10 @@ module Api
         user == record.user
       end
 
+      def attendees?
+        show?
+      end
+
       def permitted_attributes
         return [:title, :description, :start_date, :end_date, :school_id, :image, :visibility]
       end
