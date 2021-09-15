@@ -14,7 +14,11 @@ Rails.application.routes.draw do
       namespace :v1 do
         #devise_for :users, path_names: { sign_in: :login }
         mount_devise_token_auth_for 'User', at: 'auth'
-        resources :events, except: [:index]
+        resources :events, except: [:index] do
+          member do
+            get :attendees
+          end
+        end
       end
     end
   end

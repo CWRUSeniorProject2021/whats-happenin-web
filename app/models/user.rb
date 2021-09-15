@@ -10,7 +10,10 @@ class User < ApplicationRecord
   enum access_level: { user: 1, mod: 50, admin: 100 }
 
   belongs_to :school, optional: true
+
   has_many :events, inverse_of: :user, dependent: :destroy
+  has_many :event_attendees, inverse_of: :user, dependent: :destroy
+  has_many :attended_events, through: :event_attendees, source: :event
 
   validates :username, uniqueness: { case_sensitive: false }, presence: true, allow_blank: false, format: { with: /\A[a-zA-Z0-9]+\z/ }
 end
