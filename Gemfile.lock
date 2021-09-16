@@ -321,7 +321,6 @@ DEPENDENCIES
   jwt
   listen (~> 3.3)
   mysql2 (~> 0.5)
-  nokogiri
   puma (~> 5.0)
   pundit
   rack-cors
