@@ -3,7 +3,7 @@ class Event < ApplicationRecord
   enum visibility: { school_vis: 0, public_vis: 1 }
 
   before_validation :set_infinite_attendee_limit, if: -> {self.attendee_limit.blank?}
-  acts_as_addressable :event
+
   belongs_to :user, optional: false
   belongs_to :school, optional: true
 

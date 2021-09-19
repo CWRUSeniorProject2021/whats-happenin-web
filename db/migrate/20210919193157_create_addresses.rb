@@ -11,8 +11,8 @@ class CreateAddresses < ActiveRecord::Migration[6.1]
       t.string :country_code
       t.string :postal_code
 
-      t.decimal :latitude
-      t.decimal :longitude
+      t.float :latitude, precision: 13, scale: 10
+      t.float :longitude, precision: 13, scale: 10
       t.timestamps
     end
     add_index :addresses, :addressable_id
