@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(version: 2021_09_13_170519) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "visibility", default: 0, null: false
+    t.integer "attendee_limit", default: -1, null: false
     t.index ["description"], name: "index_events_on_description", length: 768
     t.index ["end_date"], name: "index_events_on_end_date"
     t.index ["school_id"], name: "index_events_on_school_id"
