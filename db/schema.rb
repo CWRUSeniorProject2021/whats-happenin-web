@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_15_005356) do
+ActiveRecord::Schema.define(version: 2021_09_13_170519) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -40,22 +40,22 @@ ActiveRecord::Schema.define(version: 2021_09_15_005356) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "comments", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "user_id"
+    t.string "comment", null: false
+    t.integer "parent_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_comments_on_event_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "domains", charset: "utf8mb4", force: :cascade do |t|
     t.string "domain", default: "", null: false
     t.bigint "school_id", null: false
     t.index ["domain"], name: "index_domains_on_domain", unique: true
     t.index ["school_id"], name: "index_domains_on_school_id"
-  end
-
-  create_table "event_attendees", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "rsvp_status", default: 1, null: false
-    t.bigint "event_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id", "user_id"], name: "index_event_attendees_on_event_id_and_user_id", unique: true
-    t.index ["event_id"], name: "index_event_attendees_on_event_id"
-    t.index ["user_id"], name: "index_event_attendees_on_user_id"
   end
 
   create_table "events", charset: "utf8mb4", force: :cascade do |t|
@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 2021_09_15_005356) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "visibility", default: 0, null: false
     t.index ["description"], name: "index_events_on_description", length: 768
     t.index ["end_date"], name: "index_events_on_end_date"
     t.index ["school_id"], name: "index_events_on_school_id"
@@ -118,9 +117,9 @@ ActiveRecord::Schema.define(version: 2021_09_15_005356) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "events", on_delete: :cascade
+  add_foreign_key "comments", "users", on_delete: :nullify
   add_foreign_key "domains", "schools", on_delete: :cascade
-  add_foreign_key "event_attendees", "events", on_delete: :cascade
-  add_foreign_key "event_attendees", "users", on_delete: :cascade
   add_foreign_key "events", "schools"
   add_foreign_key "events", "users", on_delete: :cascade
   add_foreign_key "users", "schools", on_delete: :nullify
