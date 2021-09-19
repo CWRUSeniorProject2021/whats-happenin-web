@@ -48,8 +48,6 @@ gem 'json'
 gem 'rdoc'
 # Geocoding for addresses
 gem 'geocoder'
-# Address storage
-gem 'effective_addresses'
 
 # Deployment
 gem 'capistrano', '~> 3.11'

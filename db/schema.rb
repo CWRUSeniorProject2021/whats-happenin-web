@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< a30d3bfcfe38c37b4e81f1fe3ebaaede7bfd319d
-ActiveRecord::Schema.define(version: 2021_09_19_195703) do
-=======
-ActiveRecord::Schema.define(version: 2021_09_15_033422) do
->>>>>>> Added addressable gem
+ActiveRecord::Schema.define(version: 2021_09_19_193157) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -44,21 +40,23 @@ ActiveRecord::Schema.define(version: 2021_09_15_033422) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "addresses", id: :integer, charset: "utf8mb4", force: :cascade do |t|
-    t.string "addressable_type"
-    t.integer "addressable_id"
-    t.string "category", limit: 64
+  create_table "addresses", charset: "utf8mb4", force: :cascade do |t|
+    t.string "addressable_type", null: false
+    t.bigint "addressable_id", null: false
+    t.string "type", limit: 64
     t.string "full_name"
-    t.string "address1"
-    t.string "address2"
+    t.string "street1"
+    t.string "street2"
     t.string "city"
     t.string "state_code"
     t.string "country_code"
     t.string "postal_code"
-    t.datetime "updated_at"
-    t.datetime "created_at"
+    t.decimal "latitude", precision: 10
+    t.decimal "longitude", precision: 10
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["addressable_id"], name: "index_addresses_on_addressable_id"
-    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
   end
 
   create_table "domains", charset: "utf8mb4", force: :cascade do |t|
