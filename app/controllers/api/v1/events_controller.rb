@@ -50,12 +50,6 @@ module Api
       def attendees
       end
 
-      ##
-      # Get events that are nearby the inputted coordinates
-      def nearby
-        @events = Event.all
-      end
-
     private
 
       def authorize_events
