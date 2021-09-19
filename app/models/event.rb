@@ -9,6 +9,7 @@ class Event < ApplicationRecord
 
   has_many :event_attendees, inverse_of: :event, dependent: :destroy
   has_many :attendees, through: :event_attendees, source: :user
+  has_many :comments, inverse_of: :event, dependent: :destroy
 
   validates :title, presence: true, length: {in: 3..255}
   validates :description, presence: true, length: {in: 0..10000}
