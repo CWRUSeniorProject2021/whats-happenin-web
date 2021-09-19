@@ -19,16 +19,19 @@ class Event < ApplicationRecord
   validates :description, presence: true, :length => { in: 0..10000 }
   validates :start_date, presence: true
   validates :end_date, presence: true
-  #validates :event_address, presence: true
 
   validate :end_after_start, if: -> {self.start_date > self.end_date}
 
 private
 
+  ##
+  # Validate that the end date is after the start date.
   def end_after_start
-    self.errors.add(:end_date, "End date must be after start date")
+    self.errors.add(:end_date, "must be after start date.")
   end
 
+  ##
+  # Sets the attendee limit to the infinity value if there is no limit set.
   def set_infinite_attendee_limit
     self.attendee_limit = -1
   end
