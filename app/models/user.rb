@@ -15,5 +15,7 @@ class User < ApplicationRecord
   has_many :event_attendees, inverse_of: :user, dependent: :destroy
   has_many :attended_events, through: :event_attendees, source: :event
 
+  validates :first_name, presence: true, allow_blank: false
+  validates :last_name, presence: true, allow_blank: false
   validates :username, uniqueness: { case_sensitive: false }, presence: true, allow_blank: false, format: { with: /\A[a-zA-Z0-9]+\z/ }
 end
