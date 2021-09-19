@@ -35,7 +35,7 @@ module Api
       end
 
       def permitted_attributes
-        return [:title, :description, :start_date, :end_date, :school_id, :image, :visibility]
+        return [:title, :description, :attendee_limit, :start_date, :end_date, :school_id, :image, :visibility]
       end
     end
   end
