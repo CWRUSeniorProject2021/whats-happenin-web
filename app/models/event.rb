@@ -2,6 +2,8 @@ class Event < ApplicationRecord
 
   enum visibility: {school_vis: 0, public_vis: 1}
 
+  before_validation :set_infinite_attendee_limit, if: -> {self.attendee_limit.blank?}
+
   belongs_to :user, optional: false
   belongs_to :school, optional: true
 
@@ -14,6 +16,7 @@ class Event < ApplicationRecord
   validates :description, presence: true, length: {in: 0..10000}
   validates :start_date, presence: true
   validates :end_date, presence: true
+  validates :attendee_limit, numericality: {less_than_or_equal_to: 2000000000}
 
   validate :end_after_start, if: -> {self.start_date > self.end_date}
 
@@ -21,5 +24,9 @@ private
 
   def end_after_start
     self.errors.add(:end_date, "End date must be after start date")
+  end
+
+  def set_infinite_attendee_limit
+    self.attendee_limit = -1
   end
 end
