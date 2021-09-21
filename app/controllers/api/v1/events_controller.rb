@@ -53,8 +53,8 @@ module Api
       ##
       # Get events that are nearby the inputted coordinates
       def nearby
-        # To be updated with events in a certain radius of inputted coordinates
-        @events = Event.all
+        addresses = Address.near([params[:latitude], params[:longitude]], params[:radius], units: :mi)
+        @events = addresses.collect{|a| a.addressable}.select{|e| e.school == current_user.school || e.public_vis?}
       end
 
     private
