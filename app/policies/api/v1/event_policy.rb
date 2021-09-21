@@ -34,6 +34,10 @@ module Api
         show?
       end
 
+      def nearby?
+        user.present?
+      end
+
       def permitted_attributes
         return [:title, :description, :start_date, :end_date, :school_id, :image, :visibility, :attendee_limit,
         address_attributes: [:id, :street1, :street2, :city, :state_code, :country_code, :postal_code]]

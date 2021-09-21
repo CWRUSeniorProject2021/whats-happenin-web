@@ -1,1 +1,3 @@
-json.partial! 'api/v1/events/event', locals: {event: @event}
+json.event do
+    json.partial! 'api/v1/events/event', locals: {event: @event}
+end
