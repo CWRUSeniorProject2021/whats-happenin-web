@@ -3,7 +3,7 @@ module Api
       class CommentPolicy < ApiPolicy
   
         def index?
-          false
+          true
         end
   
         def show?

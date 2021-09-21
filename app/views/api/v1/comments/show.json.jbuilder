@@ -1,1 +1,1 @@
-json.partial! 'api/v1/comments/comment'
+json.partial! 'api/v1/comments/comment', locals: {comment: @comment}

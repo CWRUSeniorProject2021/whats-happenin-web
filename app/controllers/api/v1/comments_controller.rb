@@ -3,6 +3,10 @@ module Api
       class CommentsController < ApplicationController
         before_action :authorize_comments
 
+        def index
+          @comments = Comment.where(event_id: params[:event_id])
+        end
+
         def show
         end
   
