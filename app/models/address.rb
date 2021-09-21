@@ -6,7 +6,7 @@ class Address < ApplicationRecord
 
   belongs_to :addressable, :polymorphic => true
 
-  validates_presence_of :street1, :street2, :city, :state_code, :country_code, :postal_code
+  validates_presence_of :street1, :city, :state_code, :country_code, :postal_code
 
   validate :valid_country_code, unless: -> {self.country_code.in?(COUNTRY_CODES.keys)}
 
