@@ -12,6 +12,7 @@ class Event < ApplicationRecord
 
   has_many :event_attendees, inverse_of: :event, dependent: :destroy
   has_many :attendees, through: :event_attendees, source: :user
+  has_many :comments, inverse_of: :event, dependent: :destroy
 
   accepts_nested_attributes_for :address
 

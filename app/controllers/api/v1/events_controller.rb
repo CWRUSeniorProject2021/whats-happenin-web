@@ -50,16 +50,21 @@ module Api
       def attendees
       end
 
+      ##
+      # Get events that are nearby the inputted coordinates
+      def nearby
+        # To be updated with events in a certain radius of inputted coordinates
+        @events = Event.all
+      end
+
     private
 
       def authorize_events
         case params[:action].to_sym
         when :show, :edit, :update, :destroy, :attendees
           @event = Event.find(params[:id])
-        when :new
+        when :new, :create
           @event = Event.new(user: current_user, school: current_user.school, start_date: Time.now, end_date: Time.now + 1.hour)
-        when :create
-          @event = Event.new(user: current_user, school: current_user.school)
         end
         authorize @event || Event
       end
