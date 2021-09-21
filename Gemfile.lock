@@ -141,6 +141,7 @@ GEM
     ffi (1.15.3-x64-mingw32)
     font-awesome-rails (4.7.0.7)
       railties (>= 3.2, < 7)
+    geocoder (1.6.7)
     globalid (0.5.2)
       activesupport (>= 5.0)
     i18n (1.8.10)
@@ -148,7 +149,6 @@ GEM
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     json (2.5.1)
-    jwt (2.2.3)
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -223,6 +223,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rdoc (6.3.2)
+    redis (4.4.0)
     regexp_parser (2.1.1)
     request_store (1.5.0)
       rack (>= 1.4)
@@ -329,9 +330,9 @@ DEPENDENCIES
   factory_bot_rails
   faker
   font-awesome-rails
+  geocoder
   jbuilder (~> 2.7)
   json
-  jwt
   listen (~> 3.3)
   mysql2 (~> 0.5)
   nokogiri
@@ -341,6 +342,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.4, >= 6.1.4.1)
   rdoc
+  redis (~> 4.0)
   rspec-rails
   sassc-rails
   selenium-webdriver
