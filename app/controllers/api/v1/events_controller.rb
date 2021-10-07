@@ -2,6 +2,7 @@ module Api
   module V1
     class EventsController < ApplicationController
       before_action :authorize_events
+      layout false
 
       def show
       end
