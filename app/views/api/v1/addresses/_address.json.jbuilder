@@ -12,7 +12,7 @@ json.address do
   end
   json.postal_code address.postal_code
   json.coordinates do
-    json.latitude address.latitude
-    json.longitude address.longitude
+    json.latitude address.latitude.to_f
+    json.longitude address.longitude.to_f
   end
 end
