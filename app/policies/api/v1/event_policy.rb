@@ -30,12 +30,16 @@ module Api
         user == record.user
       end
 
-      def attendees?
-        show?
-      end
-
       def nearby?
         user.present?
+      end
+
+      def rsvp?
+        user.present?
+      end
+
+      def attendees?
+        user == record.user
       end
 
       def permitted_attributes

@@ -52,7 +52,7 @@ module Api
   
         def authorize_comments
           case params[:action].to_sym
-          when :show, :edit, :update, :destroy
+          when :show, :edit, :update, :destroy, :attendees
             @comment = Comment.find(params[:id])
           when :new, :create
             @comment = Comment.new(event_id: params[:event_id], user: current_user)
