@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         resources :events, except: [:index] do
           member do
             get :attendees
+            post :rsvp
           end
           collection do
             get :nearby
