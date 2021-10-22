@@ -53,6 +53,26 @@ module Api
       end
 
       ##
+      # Get the events the user created (past and upcoming) ordered by descending date
+      def mine
+        @events = Event.where(user: current_user).order("start_date DESC")
+      end
+
+      ##
+      # Get the user's upcoming events
+      def upcoming
+        rsvps = EventAttendee.where(user: current_user)
+        @events = rsvps.collect{|r| r.event}.select{|e| e.end_date > Time.now}
+      end
+
+      ##
+      # Get the user's past events
+      def past
+        rsvps = EventAttendee.where(user: current_user)
+        @events = rsvps.collect{|r| r.event}.select{|e| e.end_date <= Time.now}
+      end
+
+      ##
       # RSVP to an event
       def rsvp
         # Check if user has already RSVP'd to this event

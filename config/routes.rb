@@ -21,6 +21,9 @@ Rails.application.routes.draw do
           end
           collection do
             get :nearby
+            get :mine
+            get :upcoming
+            get :past
           end
           resources :comments
         end
