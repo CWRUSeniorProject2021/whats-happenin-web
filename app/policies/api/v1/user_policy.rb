@@ -30,6 +30,10 @@ module Api
         false
       end
 
+      def profile?
+        user.present?
+      end
+
       def permitted_attributes
         return []
       end
