@@ -48,7 +48,7 @@ module Api
       ##
       # Get events that are nearby the inputted coordinates
       def nearby
-        addresses = Address.near([params[:latitude], params[:longitude]], params[:radius], units: :mi)
+        addresses = Address.where(addressable_type: "Event").near([params[:latitude], params[:longitude]], params[:radius], units: :mi)
         @events = addresses.collect{|a| a.addressable}.select{|e| e.school == current_user.school || e.public_vis?}
       end
 
@@ -135,7 +135,7 @@ module Api
         when :show, :edit, :update, :destroy, :rsvp, :attendees
           @event = Event.find(params[:id])
         when :new, :create
-          @event = Event.new(user: current_user, school: current_user.school, start_date: Time.now, end_date: Time.now + 1.hour)
+          @event = Event.new(user: current_user, school: current_user.school)
         end
         authorize @event || Event
       end
