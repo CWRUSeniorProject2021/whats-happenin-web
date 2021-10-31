@@ -21,6 +21,7 @@ class Event < ApplicationRecord
   validates :description, presence: true, :length => { in: 0..10000 }
   validates :start_date, presence: true
   validates :end_date, presence: true
+  validates :address, presence: true
 
   validate :end_after_start, if: -> {self.start_date > self.end_date}
 

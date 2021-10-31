@@ -10,7 +10,6 @@ class Address < ApplicationRecord
 
   validates_presence_of :street1, :city, :state_code, :country_code, :postal_code
 
-  #validate :valid_country_code, unless: -> {self.country_code.in?(COUNTRY_CODES.keys)}
   validate :valid_state_and_country
 
   UNITED_STATES_CODE = "US"
@@ -87,12 +86,14 @@ class Address < ApplicationRecord
   ##
   # Gets the country name from the country code.
   def country_name
+    return unless self.country_code.in?(COUNTRY_CODES.keys)
     COUNTRY_CODES[self.country_code]
   end
 
   ##
   # Gets the state name from the state code.
   def state_name
+    return unless self.country_code.in?(COUNTRY_CODES.keys) && self.state_code.in?(STATE_CODES[self.country_code])
     STATE_CODES[self.country_code][self.state_code]
   end
 
