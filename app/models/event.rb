@@ -1,6 +1,7 @@
 class Event < ApplicationRecord
 
   enum visibility: { school_vis: 0, public_vis: 1 }
+  enum rsvp_type: { open: 0, rsvp: 1}
 
   before_validation :set_infinite_attendee_limit, if: -> {self.attendee_limit.blank?}
 
@@ -20,6 +21,7 @@ class Event < ApplicationRecord
   validates :description, presence: true, :length => { in: 0..10000 }
   validates :start_date, presence: true
   validates :end_date, presence: true
+  validates :address, presence: true
 
   validate :end_after_start, if: -> {self.start_date > self.end_date}
 
