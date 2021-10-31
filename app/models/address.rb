@@ -3,12 +3,15 @@ class Address < ApplicationRecord
   after_validation :geocode
 
   before_validation :set_default_country_code, if: -> {self.country_code.blank?}
+  before_validation :format_country_code, if: -> {self.country_code.present?}
+  before_validation :format_state_code, if: ->{self.state_code.present?}
 
   belongs_to :addressable, :polymorphic => true
 
   validates_presence_of :street1, :city, :state_code, :country_code, :postal_code
 
-  validate :valid_country_code, unless: -> {self.country_code.in?(COUNTRY_CODES.keys)}
+  #validate :valid_country_code, unless: -> {self.country_code.in?(COUNTRY_CODES.keys)}
+  validate :valid_state_and_country
 
   UNITED_STATES_CODE = "US"
 
@@ -105,5 +108,29 @@ class Address < ApplicationRecord
   # Set the default country code to be united states if it is not specified.
   def set_default_country_code
     self.country_code = UNITED_STATES_CODE
+  end
+
+  ##
+  # Sets country code to capitals.
+  def format_country_code
+    self.country_code = self.country_code.upcase
+  end
+
+  ##
+  # Sets state code to captials.
+  def format_state_code
+    self.state_code = self.state_code.upcase
+  end
+
+  ##
+  # Ensures that the country and state codes are listed in the valid state and countries hash.
+  def valid_state_and_country
+    if self.country_code.in?(COUNTRY_CODES.keys)
+      unless self.state_code.in?(STATE_CODES[self.country_code])
+        self.errors.add(:state_code, "is not a valid state in this country.")
+      end
+    else
+      self.errors.add(:country_code, "is not supported in this country.")
+    end
   end
 end
