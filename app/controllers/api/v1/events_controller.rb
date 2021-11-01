@@ -59,17 +59,17 @@ module Api
       end
 
       ##
-      # Get the user's upcoming events
+      # Get the user's upcoming events - ascending start date
       def upcoming
         rsvps = EventAttendee.where(user: current_user)
-        @events = rsvps.collect{|r| r.event}.select{|e| e.end_date > Time.now}
+        @events = rsvps.collect{|r| r.event}.select{|e| e.end_date > Time.now}.sort_by(&:start_date)
       end
 
       ##
-      # Get the user's past events
+      # Get the user's past events - most recent first
       def past
         rsvps = EventAttendee.where(user: current_user)
-        @events = rsvps.collect{|r| r.event}.select{|e| e.end_date <= Time.now}
+        @events = rsvps.collect{|r| r.event}.select{|e| e.end_date <= Time.now}.sort_by(&:start_date).reverse
       end
 
       ##
