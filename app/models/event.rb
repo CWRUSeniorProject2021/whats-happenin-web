@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
 
   enum visibility: { school_vis: 0, public_vis: 1 }
-  enum rsvp_type: { open: 0, rsvp: 1}
+  enum restricted: { open: 0, restricted: 1}
 
   before_validation :set_infinite_attendee_limit, if: -> {self.attendee_limit.blank?}
 
