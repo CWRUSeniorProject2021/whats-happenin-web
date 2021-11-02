@@ -11,8 +11,10 @@ module Api
 
       def create
         begin
-          @event.update!(permitted_attributes(@event))
-          @event.update(school: current_user.school)
+          attrs = permitted_attributes(@event)
+          attrs["image"] = "base64 = 'data:image/png;base64,#{attrs["image"]}'" if attrs.key?("image")
+          @event.update!(attrs)
+          @event.update!(school: current_user.school)
           render :action => :show
         rescue ActiveRecord::RecordInvalid
           @status = false
