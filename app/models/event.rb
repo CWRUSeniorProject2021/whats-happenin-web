@@ -8,7 +8,7 @@ class Event < ApplicationRecord
   belongs_to :user, optional: false
   belongs_to :school, optional: true
 
-  has_one_base64_attached :image
+  has_one_attached :image
   has_one :address, :as => :addressable, :dependent => :destroy
 
   has_many :event_attendees, inverse_of: :event, dependent: :destroy

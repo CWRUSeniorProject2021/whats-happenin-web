@@ -48,8 +48,6 @@ gem 'json'
 gem 'rdoc'
 # Geocoding for addresses
 gem 'geocoder'
-# Add base 64 support for active Storage
-gem 'active_storage_base64'
 
 # Deployment
 gem 'capistrano', '~> 3.11'

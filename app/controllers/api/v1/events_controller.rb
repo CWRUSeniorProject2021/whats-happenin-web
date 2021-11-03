@@ -13,7 +13,7 @@ module Api
         begin
           @event.update!(permitted_attributes(@event))
           @event.update!(school: current_user.school)
-          if params.key?[:image]
+          if params.key?(:image)
             decoded_base_64_img = Base64.decode64(params[:image])
             @event.image.attach(
                     io: StringIO.new(decoded_base_64_img),
