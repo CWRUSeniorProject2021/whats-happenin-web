@@ -39,8 +39,6 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_storage_base64 (1.2.0)
-      rails (~> 6.1)
     active_storage_validations (0.9.5)
       rails (>= 5.2.0)
     activejob (6.1.4.1)
@@ -315,7 +313,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  active_storage_base64
   active_storage_validations
   bcrypt_pbkdf
   bootsnap (>= 1.4.4)
