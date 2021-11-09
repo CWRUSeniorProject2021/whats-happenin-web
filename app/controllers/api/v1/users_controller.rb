@@ -11,7 +11,7 @@ module Api
       def authorize_user
         case params[:action].to_sym
         when :profile
-          @user = current_user
+          @user = User.find(params[:id])
         end
         authorize @user || User
       end
