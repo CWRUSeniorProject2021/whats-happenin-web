@@ -80,56 +80,78 @@ module Api
         @events = rsvps.collect{|r| r.event}.select{|e| e.end_date <= Time.now}.sort_by(&:start_date).reverse
       end
 
+      def rsvp
+        @event = Event.find(params[:id])
+        @rsvp = EventAttendee.find_by(user_id: current_user.id, event_id: params[:id])
+        rsvp_status = params[:rsvp_status]
+
+        if @event.present?
+          begin
+            case rsvp_status.to_sym
+            when :yes, :maybe
+              @rsvp = EventAttendee.find_or_create_by(event: @event, user: current_user)
+              @rsvp.update!(rsvp_status: rsvp_status.to_sym)
+            when :no
+              if @rsvp.present?
+                EventAttendee.destroy(@rsvp.id)
+              end
+            end
+          rescue ActiveRecord::RecordInvalid
+            @errors = ["Could not create"]
+          end
+        end
+      end
       ##
       # RSVP to an event
-      def rsvp
-        # Check if user has already RSVP'd to this event
-        @event_attendee = EventAttendee.where("event_id = ? AND user_id = ?", @event.id, current_user.id)
-        @rsvp_status = params[:event_attendee][:rsvp_status]
-
-        if @event_attendee.empty?
-           # User has not RSVP'd to this event before
-          create_new_rsvp
-        else
-          # User has RSVP'd to this event before, update response
-          update_rsvp
-        end
-      end
-
-      def create_new_rsvp
-        @event_attendee = EventAttendee.new(rsvp_status: @rsvp_status, event_id: @event.id, user_id: current_user.id)
-        begin
-          @event_attendee.update!(permitted_attributes(@event_attendee))
-          render plain: 'Successfully RSVPd to event ' + @event.id.to_s + ' with status ' + @rsvp_status
-        rescue ActiveRecord::RecordInvalid
-          @status = false
-          @errors = @event_attendee.errors
-          render plain:'Could not RSVP to event ' + @event.id.to_s + ' with status ' + @rsvp_status, status: :bad_request
-        end
-      end
-
-      def update_rsvp
-        if @rsvp_status == "no"
-          # If response is no, delete entry
-          begin
-            EventAttendee.destroy(@event_attendee.ids)
-            render plain: 'Successfully updated RSVP to event ' + @event.id.to_s + ' to status ' + @rsvp_status
-          rescue
-            @status = false
-            @errors = @event_attendee.errors
-            render plain: 'Could not update RSVP to event ' + @event.id.to_s + ' to status ' + @rsvp_status, status: :bad_request
-          end
-        else
-          begin
-            @event_attendee.update(permitted_attributes(@event_attendee))
-            render plain: 'Successfully updated RSVP to event ' + @event.id.to_s + ' to status ' + @rsvp_status
-          rescue ActiveRecord::RecordInvalid
-            @status = false
-            @errors = @event_attendee.errors
-            render plain: 'Could not update RSVP to event ' + @event.id.to_s + ' to status ' + @rsvp_status, status: :bad_request
-          end
-        end
-      end
+      # def rsvp
+      #   # Check if user has already RSVP'd to this event
+      #
+      #   @event_attendee = EventAttendee.where("event_id = ? AND user_id = ?", params[:id], current_user.id)
+      #
+      #
+      #   if @event_attendee.empty?
+      #      # User has not RSVP'd to this event before
+      #     create_new_rsvp
+      #   else
+      #     # User has RSVP'd to this event before, update response
+      #     update_rsvp
+      #   end
+      # end
+      #
+      # def create_new_rsvp
+      #   @event_attendee = EventAttendee.new(rsvp_status: @rsvp_status, event_id: @event.id, user_id: current_user.id)
+      #   begin
+      #     @event_attendee.update!(permitted_attributes(@event_attendee))
+      #     render plain: 'Successfully RSVPd to event ' + @event.id.to_s + ' with status ' + @rsvp_status
+      #   rescue ActiveRecord::RecordInvalid
+      #     @status = false
+      #     @errors = @event_attendee.errors
+      #     render plain:'Could not RSVP to event ' + @event.id.to_s + ' with status ' + @rsvp_status, status: :bad_request
+      #   end
+      # end
+      #
+      # def update_rsvp
+      #   if @rsvp_status == "no"
+      #     # If response is no, delete entry
+      #     begin
+      #       EventAttendee.destroy(@event_attendee.ids)
+      #       render plain: 'Successfully updated RSVP to event ' + @event.id.to_s + ' to status ' + @rsvp_status
+      #     rescue
+      #       @status = false
+      #       @errors = @event_attendee.errors
+      #       render plain: 'Could not update RSVP to event ' + @event.id.to_s + ' to status ' + @rsvp_status, status: :bad_request
+      #     end
+      #   else
+      #     begin
+      #       @event_attendee.update(permitted_attributes(@event_attendee))
+      #       render plain: 'Successfully updated RSVP to event ' + @event.id.to_s + ' to status ' + @rsvp_status
+      #     rescue ActiveRecord::RecordInvalid
+      #       @status = false
+      #       @errors = @event_attendee.errors
+      #       render plain: 'Could not update RSVP to event ' + @event.id.to_s + ' to status ' + @rsvp_status, status: :bad_request
+      #     end
+      #   end
+      # end
 
       ##
       # Get attendees and rsvp status for the provided event
