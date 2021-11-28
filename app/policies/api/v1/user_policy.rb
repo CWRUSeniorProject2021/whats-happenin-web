@@ -19,7 +19,7 @@ module Api
       end
 
       def update?
-        false
+        record == user
       end
 
       def edit?
@@ -39,7 +39,7 @@ module Api
       end
 
       def permitted_attributes
-        return []
+        return [:first_name, :last_name, :username, :email]
       end
     end
   end
