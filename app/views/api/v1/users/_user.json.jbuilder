@@ -8,7 +8,9 @@ json.school do
 end
 if user == current_user
   json.email user.email
-else
+end
+
+if load_events
   json.events user.events do |e|
     json.partial! 'api/v1/events/event', locals: {event: e}
   end
