@@ -6,6 +6,9 @@ module Api
       def profile
       end
 
+      def myprofile
+      end
+
     private
 
       def authorize_user
