@@ -34,6 +34,10 @@ module Api
         user.present?
       end
 
+      def myprofile?
+        user.present?
+      end
+
       def permitted_attributes
         return []
       end
