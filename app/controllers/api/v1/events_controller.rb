@@ -13,8 +13,8 @@ module Api
         begin
           @event.update!(permitted_attributes(@event))
           @event.update!(school: current_user.school)
-          if params.key?(:image)
-            decoded_base_64_img = Base64.decode64(params[:image])
+          if params.key?(:image_64)
+            decoded_base_64_img = Base64.decode64(params[:image_64])
             @event.image.attach(
                     io: StringIO.new(decoded_base_64_img),
                     filename: "test_img_name",
@@ -35,6 +35,14 @@ module Api
       def update
         begin
           @event.update!(permitted_attributes(@event))
+          if params.key?(:image_64)
+            decoded_base_64_img = Base64.decode64(params[:image_64])
+            @event.image.attach(
+                    io: StringIO.new(decoded_base_64_img),
+                    filename: "test_img_name",
+                    content_type: "image/jpeg"
+            )
+          end
           render :action => :show
         rescue ActiveRecord::RecordInvalid
           @status = false
