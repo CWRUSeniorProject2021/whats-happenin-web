@@ -8,7 +8,7 @@
 # server "db.example.com", user: "deploy", roles: %w{db}
 server "192.168.10.73", user: "deploy", roles: %w{app db web}
 
-
+config.assets.enabled = false
 
 # role-based syntax
 # ==================
