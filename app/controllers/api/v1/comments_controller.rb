@@ -9,10 +9,10 @@ module Api
 
         def show
         end
-  
+
         def new
         end
-  
+
         def create
           begin
             @comment.update!(permitted_attributes(@comment))
@@ -23,10 +23,10 @@ module Api
             render :action => :new, status: :bad_request
           end
         end
-  
+
         def edit
         end
-  
+
         def update
           begin
             @comment.update!(permitted_attributes(@comment))
@@ -37,7 +37,7 @@ module Api
             render :action => :edit, status: :bad_request
           end
         end
-  
+
         def destroy
           begin
             @comment.destroy!
@@ -47,9 +47,9 @@ module Api
             render status: :bad_request
           end
         end
-  
+
       private
-  
+
         def authorize_comments
           case params[:action].to_sym
           when :show, :edit, :update, :destroy
@@ -62,4 +62,3 @@ module Api
       end
     end
   end
-  
