@@ -16,14 +16,20 @@ class User < ApplicationRecord
   has_many :attended_events, through: :event_attendees, source: :event
 
   before_validation :ensure_email_in_domain, :on => [:create, :update]
+  before_validation :lowercase_email
 
   validates :first_name, presence: true, allow_blank: false
   validates :last_name, presence: true, allow_blank: false
   validates :username, uniqueness: { case_sensitive: false }, presence: true, allow_blank: false, format: { with: /\A[a-zA-Z0-9]+\z/ }
   validate  :school_presence, if: -> {!school.present? && email.present?}
-  validates :email, uniqueness: { case_sensitive: false}, presence: true, allow_blank: false
+  validates :email, uniqueness: true, presence: true, allow_blank: false
 
   private
+
+    def lowercase_email
+      self.email.downcase!
+    end
+
     def ensure_email_in_domain
       return unless self.email.present?
       email = self.email
