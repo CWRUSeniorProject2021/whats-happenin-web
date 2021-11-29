@@ -21,7 +21,8 @@ class User < ApplicationRecord
   validates :last_name, presence: true, allow_blank: false
   validates :username, uniqueness: { case_sensitive: false }, presence: true, allow_blank: false, format: { with: /\A[a-zA-Z0-9]+\z/ }
   validate  :school_presence, if: -> {!school.present? && email.present?}
-  
+  validates :email, uniqueness: { case_sensitive: false}, presence: true, allow_blank: false
+
   private
     def ensure_email_in_domain
       return unless self.email.present?
