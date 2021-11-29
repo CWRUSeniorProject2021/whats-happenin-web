@@ -15,7 +15,7 @@ class User < ApplicationRecord
   has_many :event_attendees, inverse_of: :user, dependent: :destroy
   has_many :attended_events, through: :event_attendees, source: :event
 
-  before_validation :ensure_email_in_domain, :on => :create
+  before_validation :ensure_email_in_domain, :on => [:create, :update]
 
   validates :first_name, presence: true, allow_blank: false
   validates :last_name, presence: true, allow_blank: false
@@ -31,9 +31,9 @@ class User < ApplicationRecord
         email_domain = email.partition('@').last
         suffix = email_domain.split('.').last
         domain = Domain.find_by_domain(email_domain)
-        if domain.blank? and suffix == ".edu"
-          sch = School.create(name: email_domain)
-          domain = Domain.create(school: school, domain: email_domain)
+        if domain.blank? and suffix == "edu"
+          sch = School.create!(name: email_domain)
+          domain = Domain.create!(school_id: sch.id, domain: email_domain)
         end
         return unless domain.present?
         self.school = domain.school
