@@ -29,7 +29,12 @@ class User < ApplicationRecord
       email = self.email
       if email.include? "@"
         email_domain = email.partition('@').last
+        suffix = email_domain.split('.').last
         domain = Domain.find_by_domain(email_domain)
+        if domain.blank? and suffix == ".edu"
+          sch = School.create(name: email_domain)
+          domain = Domain.create(school: school, domain: email_domain)
+        end
         return unless domain.present?
         self.school = domain.school
       end
